@@ -33,7 +33,7 @@ migrate_working_dir/
 /build/
 GoogleService-Info.plist
 
-# Symbolication related
+# Symbolication rela
 app.*.symbols
 
 # Obfuscation related

@@ -32,6 +32,7 @@ migrate_working_dir/
 .pub/
 /build/
 GoogleService-Info.plist
+firebase_options.dart
 
 # Symbolication rela
 app.*.symbols

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -58,6 +57,7 @@ class DataUploaderController extends GetxController {
           'question': question.question,
           'correct_answer': question.correctAnswer
         });
+
         for (var answer in question.answers) {
           batch.set(questionPath.collection('answer').doc(answer.identifier), {
             'identifier': answer.identifier,

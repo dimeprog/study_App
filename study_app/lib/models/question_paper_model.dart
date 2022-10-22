@@ -1,9 +1,6 @@
-// To parse this JSON data, do
-//
-//     final questionPaper = questionPaperFromJson(jsonString);
-
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_app/models/question_model.dart';
 
 QuestionPaper questionPaperFromJson(String str) =>
@@ -19,6 +16,7 @@ class QuestionPaper {
     required this.description,
     required this.timeSeconds,
     this.questions,
+    required this.questionCount,
   });
 
   String id;
@@ -26,16 +24,31 @@ class QuestionPaper {
   String? imageUrl;
   String description;
   int timeSeconds;
+  int questionCount;
   List<Question>? questions;
-
+  String timeInMint() => "${(timeSeconds / 60).ceil()} mins";
   factory QuestionPaper.fromJson(Map<String, dynamic> json) => QuestionPaper(
         id: json["id"] as String,
         title: json["title"] as String,
         imageUrl: json["image_url"] as String,
         description: json["Description"] as String,
         timeSeconds: json["time_seconds"],
+        questionCount: json['question_count'] as int,
         questions: List<Question>.from(
             json["questions"].map((x) => Question.fromJson(x))),
+      );
+
+  factory QuestionPaper.fromSnapShot(
+    DocumentSnapshot<Map<String, dynamic>> json,
+  ) =>
+      QuestionPaper(
+        id: json.id,
+        title: json["title"],
+        imageUrl: json["imageUrl"],
+        description: json["description"],
+        timeSeconds: json["timeSeconds"],
+        questionCount: json['question_count'],
+        questions: [],
       );
 
   Map<String, dynamic> toJson() => {
